@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Eat</title>
+</head>
+<body>
+<div id="play" style="margin:0 auto; width: 100%; max-width: 470px;">
+	<video id="foodmv" autoplay="true" preload="auto" loop="true" height="470" width="470">
+		<source src="https://fbcdn-video-k-a.akamaihd.net/hvideo-ak-xfa1/v/t42.4659-2/12291562_916652518426786_425108627_n.mp4?oh=ab2f88adfcc0b795dcab677628b8a1a0&oe=5660875E&__gda__=1449167192_18d35ed3e46965be1f6de868b4b150d6" type="video/mp4">
+	</video>
+	<div id="ios" style="display:none">
+		iOS users: Click the play button to play and pause. 
+	</div>
+	<!--
+	See <a href="https://media.giphy.com/media/3o8dpayAdL7diuc6oo/giphy.gif">the origin gif</a>.
+	-->
+</div>
+<script>
+var $= function(id) {
+	return document.getElementById(id);
+	},
+	food = $('foodmv'),
+	isPause = false,
+	iOS = /iPad|iPhone|iPod/.test(navigator.platform);
+
+$('play').onclick = function(){
+  if (isPause) {
+    food.play();     
+  } else {
+    food.pause();     
+  }
+}
+food.onpause = function(){
+  isPause = true;
+}
+food.onplay = function(){
+  isPause = false;  
+}
+if (iOS) {
+	$('ios').css.display = 'block';
+}
+</script>
+</body>
+</html>
