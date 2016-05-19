@@ -31,7 +31,7 @@
 </div>
 
 <script src="lib/shake.js"></script>
-<script src="http://www.google-analytics.com/analytics.js">
+<script src="http://www.google-analytics.com/analytics.js"></script>
 <script>
 var start = document.getElementById("start"),
 	max_random = 100,
@@ -41,7 +41,7 @@ var start = document.getElementById("start"),
 	url = 'https://spreadsheets.google.com/feeds/cells/1WTcuf40ZT6LUSyCSdDMxln-La2UYhP1VI5eGgZdI4wQ/od6/public/values?alt=json-in-script&callback=sheetLoaded';
 
 var myShakeEvent = new Shake();
-ga();
+myga();
 myShakeEvent.start();
 window.addEventListener('shake', shakeEventDidOccur, false);
 start.onclick = gameStart;
@@ -94,7 +94,7 @@ function loadScript(url, callback) {
     head.appendChild(script);
 }
 
-function ga() {
+function myga() {
 	ga('create', 'UA-46902119-5', 'auto');
 	ga('send', 'pageview');
 }
