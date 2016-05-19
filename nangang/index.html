@@ -23,15 +23,15 @@
 	<hr>
 	<div id="random-area" style="font-size:2em; color: green; font-weight: bold">？？？</div>
 
-	<button id="start" style="font-size:2em; margin-top: 1em; padding: 0.4em">開始挑選食物</button>
+	<button id="start" style="font-size:2em; margin-top: 1em; padding: 0.4em">開始搜尋</button>
 	<div>
 		<div style="font-size:0.7em; color: #666; margin-top: 2em">* 你也可以<i>搖一搖</i></div>
 		<img src="media/shake-phone.png" width="40%" style="max-width: 300px">
 	</div>
 </div>
 
-<script src="http://www.google-analytics.com/analytics.js"></script>
 <script src="lib/shake.js"></script>
+<script src="http://www.google-analytics.com/analytics.js">
 <script>
 var start = document.getElementById("start"),
 	max_random = 100,
@@ -41,7 +41,7 @@ var start = document.getElementById("start"),
 	url = 'https://spreadsheets.google.com/feeds/cells/1WTcuf40ZT6LUSyCSdDMxln-La2UYhP1VI5eGgZdI4wQ/od6/public/values?alt=json-in-script&callback=sheetLoaded';
 
 var myShakeEvent = new Shake();
-myga();
+ga();
 myShakeEvent.start();
 window.addEventListener('shake', shakeEventDidOccur, false);
 start.onclick = gameStart;
@@ -94,7 +94,7 @@ function loadScript(url, callback) {
     head.appendChild(script);
 }
 
-function myga() {
+function ga() {
 	ga('create', 'UA-46902119-5', 'auto');
 	ga('send', 'pageview');
 }
