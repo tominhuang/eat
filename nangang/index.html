@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta content="南港軟體園區午餐 Nangang Software Park Lunch" name="description">
+  <meta content="Eat, Lunch, Food" name="keywords">
+  <meta content="南港軟體園區午餐 Nangang Software Park Lunch" property="og:title">
+  <meta content="午餐決策支援系統" property="og:description">
+  <meta content="http://farm3.static.flickr.com/2439/3622044656_08b2a2dc22_o.png" property="og:image">
+  <meta content="http://tomin.github.com/eat/" property="og:url">
+  <meta property="fb:app_id" content="70344959780"/>
+  <title>Nangang Food</title>
+  <style>
+	body {
+		margin: 0;
+	}
+  </style>
+</head>
+<body>
+<div style="text-align:center">
+	<div id="title" style="font-size:3em">今天吃什麼</div>
+	<hr>
+	<div id="random-area" style="font-size:2em; color: green; font-weight: bold">? ? ?</div>
+
+	<button id="start" style="font-size:2em; margin-top: 1em; padding: 0.4em">開始挑選食物</button>
+	<div>
+		<div style="font-size:0.7em; color: #666; margin-top: 2em">* 你也可以<i>搖一搖</i></div>
+		<img src="media/shake-phone.png" width="40%" style="max-width: 300px">
+	</div>
+</div>
+
+<script src="lib/shake.js"></script>
+<script>
+var start = document.getElementById("start"),
+	max_random = 100,
+	random_area = document.getElementById("random-area"),
+	again_text = '再選一次',
+	arr = [],
+	url = 'https://spreadsheets.google.com/feeds/cells/1WTcuf40ZT6LUSyCSdDMxln-La2UYhP1VI5eGgZdI4wQ/od6/public/values?alt=json-in-script&callback=sheetLoaded';
+
+var myShakeEvent = new Shake();
+myShakeEvent.start();
+window.addEventListener('shake', shakeEventDidOccur, false);
+start.onclick = gameStart;
+
+loadScript(url, function(){
+	//loaded
+});
+
+function shakeEventDidOccur () {
+	gameStart();
+}
+
+function gameStart() {
+	random(max_random);
+	start.disabled = true;
+	start.innerHTML = '搜尋中...';
+}
+
+function sheetLoaded(obj) {
+	var entries = obj.feed.entry;
+	entries.forEach(function(data, idx){
+		var cell = data['gs$cell'];
+		if (~~cell['col'] == 1 && ~~cell['row'] > 1) {
+			arr.push(data.content['$t'])			
+		}
+	});
+}
+
+function random(max_random) {
+	if (max_random < 0) {
+		start.disabled = false;
+		start.innerHTML = again_text;
+		return;
+	}
+	random_area.innerHTML = arr[Math.floor(Math.random()*arr.length)];
+	
+	setTimeout(function() {
+		random(--max_random);
+	}, 1000/50);
+}
+
+function loadScript(url, callback) {
+    var head = document.getElementsByTagName('head')[0];
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = url;
+    script.onreadystatechange = callback;
+    script.onload = callback;
+    head.appendChild(script);
+}
+</script>
+
+</body>
+</html>
+
+
