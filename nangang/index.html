@@ -38,6 +38,7 @@ var start = document.getElementById("start"),
 	random_area = document.getElementById("random-area"),
 	again_text = '再選一次',
 	arr = [],
+	timer,
 	url = 'https://spreadsheets.google.com/feeds/cells/1WTcuf40ZT6LUSyCSdDMxln-La2UYhP1VI5eGgZdI4wQ/od6/public/values?alt=json-in-script&callback=sheetLoaded';
 
 var myShakeEvent = new Shake({
@@ -59,6 +60,7 @@ function shakeEventDidOccur () {
 }
 
 function gameStart() {
+	clearTimeout(timer);
 	random(max_random);
 	start.disabled = true;
 	start.innerHTML = '搜尋中...';
@@ -74,7 +76,7 @@ function sheetLoaded(obj) {
 	});
 }
 
-function random(max_random) {
+function random(max_random) {	
 	if (max_random < 0) {
 		start.disabled = false;
 		start.innerHTML = again_text;
@@ -82,7 +84,7 @@ function random(max_random) {
 	}
 	random_area.innerHTML = arr[Math.floor(Math.random()*arr.length)];
 	
-	setTimeout(function() {
+	timer = setTimeout(function() {
 		random(--max_random);
 	}, 1000/50);
 }
