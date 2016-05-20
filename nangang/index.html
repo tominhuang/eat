@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta content="南港軟體園區午餐 Nangang Software Park Lunch" name="description">
+  <meta content="南港軟體園區午餐選擇器 Nangang Software Park Lunch Selector" name="description">
   <meta content="Eat, Lunch, Food" name="keywords">
-  <meta content="南港軟體園區午餐 Nangang Software Park Lunch" property="og:title">
-  <meta content="午餐決策支援系統" property="og:description">
+  <meta content="南港軟體園區午餐選擇器 Nangang Software Park Lunch Selector" property="og:title">
+  <meta content="中午吃什麼餐廳產生器" property="og:description">
   <meta content="http://farm3.static.flickr.com/2439/3622044656_08b2a2dc22_o.png" property="og:image">
   <meta content="http://tomin.github.com/eat/nangang/" property="og:url">
   <meta property="fb:app_id" content="70344959780"/>
@@ -40,7 +40,10 @@ var start = document.getElementById("start"),
 	arr = [],
 	url = 'https://spreadsheets.google.com/feeds/cells/1WTcuf40ZT6LUSyCSdDMxln-La2UYhP1VI5eGgZdI4wQ/od6/public/values?alt=json-in-script&callback=sheetLoaded';
 
-var myShakeEvent = new Shake();
+var myShakeEvent = new Shake({
+    threshold: 10, // optional shake strength threshold
+    timeout: 1000 // optional, determines the frequency of event generation
+});
 myga();
 myShakeEvent.start();
 window.addEventListener('shake', shakeEventDidOccur, false);
